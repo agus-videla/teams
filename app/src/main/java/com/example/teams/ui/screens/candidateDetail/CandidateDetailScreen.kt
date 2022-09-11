@@ -1,4 +1,7 @@
 package com.example.teams.ui.screens.candidateDetail
 
-class CandidateDetailScreen {
+import androidx.compose.runtime.Composable
+
+@Composable
+fun candidateDetailScreen() {
 }

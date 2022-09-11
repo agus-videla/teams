@@ -12,6 +12,9 @@ interface CandidateDao {
     @Query("SELECT * FROM Candidates ORDER BY id ASC")
     fun getAllCandidates(): Flow<List<Candidate>>
 
+    @Query("SELECT * FROM Candidates WHERE Candidates.id = :id")
+    fun getCandidate(id: Int): Flow<Candidate>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(candidate: Candidate)
 

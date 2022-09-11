@@ -1,42 +1,45 @@
 package com.example.teams.ui.screens.shared
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.teams.R
 import com.example.teams.data.model.entities.Candidate
-
-data class MockCandidate(
-    val pp: Int = R.drawable.profile_picture,
-    val name: String = "John",
-    val surname: String = "Salchichon",
-    val title: String = "Computer Engineer",
-    val quote: String = "When life gives you lemons make lemonade",
-)
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun CandidateCard(candidate: Candidate) {
-    Row() {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+    ) {
         ProfilePicture(R.drawable.profile_picture)
-        BasicInfo(candidate.firstName, candidate.lastName, candidate.jobTitle, candidate.quote)
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .padding(end = 5.dp)
+        ) {
+            BasicInfo(
+                name = candidate.firstName,
+                surname = candidate.lastName,
+                title = candidate.jobTitle,
+                quote = candidate.quote,
+            )
+            Spacer(modifier = Modifier.width(2.dp))
+            Button(modifier = Modifier.align(Alignment.End), onClick = { /*TODO*/ }) {
+                Text("Button")
+            }
+        }
     }
 }
 
 @Composable
-fun BasicInfo(name: String,
-              surname: String,
-              title: String,
-              quote: String
-) {
+fun BasicInfo(name: String, surname: String, title: String, quote: String) {
     Column() {
         Row {
             Text(name)
@@ -54,20 +57,29 @@ fun BasicInfo(name: String,
 @Preview(showBackground = true)
 @Composable
 fun EmployeeCard() {
-    Row() {
+    Row {
         ProfilePicture(R.drawable.profile_picture)
-        BasicInfo(
-            "John",
-            "Salchichon",
-            "Computer Engineer",
-            "When life gives you lemons make lemonade"
-        )
+        Column(
+            modifier = Modifier.padding(end = 5.dp)
+        ) {
+            BasicInfo(
+                "John",
+                "Salchichon",
+                "Computer Engineer",
+                "When life gives you lemons make lemonade"
+            )
+            Spacer(modifier = Modifier.width(2.dp))
+            Button(modifier = Modifier.align(Alignment.End), onClick = { /*TODO*/ }) {
+                Text("Button")
+            }
+        }
     }
 }
 
 @Composable
 fun ProfilePicture(pp: Int) {
     Image(
+        modifier = Modifier.height(100.dp),
         painter = painterResource(pp),
         contentDescription = "profile"
     )

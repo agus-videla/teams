@@ -12,4 +12,8 @@ class TeamsRepository(private val candidateDao: CandidateDao) {
     suspend fun insert(candidate: Candidate) {
         candidateDao.insert(candidate)
     }
+
+    fun select(id: Int): Flow<Candidate> {
+        return candidateDao.getCandidate(id)
+    }
 }

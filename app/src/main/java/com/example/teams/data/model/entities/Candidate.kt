@@ -15,4 +15,18 @@ class Candidate(
    @ColumnInfo(name = "job_title") val jobTitle: String,
    @ColumnInfo(name = "quote") val quote: String,
    @ColumnInfo(name = "bio") val bio: String,
-)
+   @ColumnInfo(name = "profile_picture") val profilePicture: String
+) {
+   constructor() : this(
+      -1,
+      "",
+      "",
+      "",
+      "",
+      0,
+      "",
+      "",
+      "",
+      ""
+   )
+}
