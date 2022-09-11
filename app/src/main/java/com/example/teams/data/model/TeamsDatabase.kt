@@ -4,11 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.teams.data.model.dao.CandidateDao
 import com.example.teams.data.model.entities.Candidate
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Database(entities = [Candidate::class], version = 1, exportSchema = false)
 abstract class TeamsDatabase : RoomDatabase() {
@@ -20,6 +18,7 @@ abstract class TeamsDatabase : RoomDatabase() {
         private val scope: CoroutineScope
     ) : RoomDatabase.Callback() {
 
+        /*
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             INSTANCE?.let { database ->
@@ -56,7 +55,7 @@ abstract class TeamsDatabase : RoomDatabase() {
                     candidateDao.insert(candidate)
                 }
             }
-        }
+        }*/
     }
 
     companion object {
