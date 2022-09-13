@@ -13,9 +13,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.teams.R
 import com.example.teams.data.model.entities.Candidate
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.example.teams.ui.screens.ScreenRoute
 
 @Composable
-fun CandidateCard(candidate: Candidate) {
+fun CandidateCard(candidate: Candidate, navController: NavHostController) {
     Row(modifier = Modifier
         .fillMaxWidth()
     ) {
@@ -31,7 +33,9 @@ fun CandidateCard(candidate: Candidate) {
                 quote = candidate.quote,
             )
             Spacer(modifier = Modifier.width(2.dp))
-            Button(modifier = Modifier.align(Alignment.End), onClick = { /*TODO*/ }) {
+            Button(modifier = Modifier.align(Alignment.End), onClick = {
+                navController.navigate(ScreenRoute.DetailScreen.withArgs(candidate.id))
+            }) {
                 Text("Button")
             }
         }

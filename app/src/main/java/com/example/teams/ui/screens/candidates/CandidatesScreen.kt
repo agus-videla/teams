@@ -5,6 +5,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import com.example.teams.ui.screens.shared.CandidateCard
 import com.example.teams.ui.screens.shared.EmployeeCard
 
@@ -17,11 +18,11 @@ fun Candidates() {
 }
 
 @Composable
-fun CandidatesScreen(viewModel: CandidatesViewModel) {
+fun CandidatesScreen(viewModel: CandidatesViewModel, navController: NavHostController) {
     val state = viewModel.state.collectAsState()
     LazyColumn {
         itemsIndexed(state.value) { _, candidate ->
-            CandidateCard(candidate = candidate)
+            CandidateCard(candidate = candidate,navController)
         }
     }
 }
