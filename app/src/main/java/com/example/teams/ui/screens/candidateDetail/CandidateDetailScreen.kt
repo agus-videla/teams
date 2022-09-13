@@ -1,24 +1,41 @@
 package com.example.teams.ui.screens.candidateDetail
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun CandidateDetailScreen(id: Int) {
+fun CandidateDetailScreen(viewModel: CandidateDetailViewModel, id: Int) {
+    viewModel.select(id)
+    val state = viewModel.state.collectAsState()
+    val candidate = state.value
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(),
         contentAlignment = Alignment.Center
     ) {
-        Text(style = MaterialTheme.typography.h4,
-            text = "Detail Screen $id")
+        Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
+            Text(style = MaterialTheme.typography.h6,
+                text = "Name: ${candidate.firstName} ${candidate.lastName}")
+            Text(style = MaterialTheme.typography.h6,
+                text = "Job: ${candidate.jobTitle}")
+            Text(style = MaterialTheme.typography.h6,
+                text = "Catchphrase: ${candidate.quote}")
+            Text(style = MaterialTheme.typography.h6,
+                text = "Age: ${candidate.age}")
+            Text(style = MaterialTheme.typography.h6,
+                text = "Bio: ${candidate.bio}")
+
+        }
     }
 }

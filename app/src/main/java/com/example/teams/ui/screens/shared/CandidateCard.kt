@@ -14,15 +14,16 @@ import com.example.teams.R
 import com.example.teams.data.model.entities.Candidate
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.teams.ui.screens.ScreenRoute
+import com.example.teams.ui.screens.navigation.ScreenRoute
 
 @Composable
 fun CandidateCard(candidate: Candidate, navController: NavHostController) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
+    Row(
+        modifier = Modifier.fillMaxWidth()
     ) {
         ProfilePicture(R.drawable.profile_picture)
-        Column(modifier = Modifier
+        Column(
+            modifier = Modifier
             .fillMaxWidth()
             .padding(end = 5.dp)
         ) {
@@ -44,7 +45,7 @@ fun CandidateCard(candidate: Candidate, navController: NavHostController) {
 
 @Composable
 fun BasicInfo(name: String, surname: String, title: String, quote: String) {
-    Column() {
+    Column {
         Row {
             Text(name)
             Spacer(modifier = Modifier.width(2.dp))
