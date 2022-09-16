@@ -13,28 +13,30 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.teams.ui.screens.candidateDetail.CandidateDetailViewModel
 import com.example.teams.ui.screens.candidates.CandidatesViewModel
-import com.example.teams.ui.screens.navigation.BottomNavGraph
-import com.example.teams.ui.screens.navigation.BottomNavItem
+import com.example.teams.ui.navigation.NavGraph
+import com.example.teams.ui.navigation.BottomNavItem
+import com.example.teams.ui.screens.teams.TeamsViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ScreenContainer(
     navController: NavHostController,
     candidatesViewModel: CandidatesViewModel,
-    candidateDetailViewModel: CandidateDetailViewModel
+    candidateDetailViewModel: CandidateDetailViewModel,
+    teamsViewModel: TeamsViewModel
 ) {
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
     ) {
-        BottomNavGraph(navController, candidatesViewModel, candidateDetailViewModel)
+        NavGraph(navController, candidatesViewModel, candidateDetailViewModel, teamsViewModel)
     }
 }
 
 @Composable
 fun BottomBar(navController: NavHostController) {
     val items = listOf(
-        BottomNavItem.CandidatesScreen,
-        BottomNavItem.TeamsScreen
+        BottomNavItem.TeamsScreen,
+        BottomNavItem.CandidatesScreen
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination

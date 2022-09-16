@@ -1,33 +1,33 @@
-package com.example.teams.ui.screens.navigation
+package com.example.teams.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.teams.ui.screens.candidateDetail.CandidateDetailScreen
 import com.example.teams.ui.screens.candidateDetail.CandidateDetailViewModel
 import com.example.teams.ui.screens.candidates.CandidatesScreen
 import com.example.teams.ui.screens.candidates.CandidatesViewModel
 import com.example.teams.ui.screens.teams.TeamsScreen
+import com.example.teams.ui.screens.teams.TeamsViewModel
 
 @Composable
-fun BottomNavGraph(
+fun NavGraph(
     navController: NavHostController,
     candidatesViewModel: CandidatesViewModel,
-    candidateDetailViewModel: CandidateDetailViewModel
+    candidateDetailViewModel: CandidateDetailViewModel,
+    teamsViewModel: TeamsViewModel
 ) {
     NavHost(
         navController = navController,
-        startDestination = ScreenRoute.CandidatesScreen.route) {
+        startDestination = ScreenRoute.TeamsScreen.route) {
+        composable(ScreenRoute.TeamsScreen.route) {
+            TeamsScreen(teamsViewModel)
+        }
         composable(ScreenRoute.CandidatesScreen.route) {
             CandidatesScreen(candidatesViewModel, navController)
-        }
-        composable(ScreenRoute.TeamsScreen.route) {
-            TeamsScreen()
         }
         composable(
             route = ScreenRoute.DetailScreen.route + "/{id}",
@@ -37,7 +37,8 @@ fun BottomNavGraph(
         ) { entry ->
             val id = entry.arguments?.getInt("id")
             requireNotNull(id) { "Detail Requires ID" }
-            CandidateDetailScreen(candidateDetailViewModel, id)
+            candidateDetailViewModel.select(id)
+            CandidateDetailScreen(candidateDetailViewModel)
         }
     }
 }

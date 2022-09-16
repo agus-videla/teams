@@ -15,6 +15,9 @@ interface CandidateDao {
     @Query("SELECT * FROM Candidates WHERE Candidates.id = :id")
     fun getCandidate(id: Int): Flow<Candidate>
 
+    @Query("SELECT * FROM Candidates WHERE Candidates.team_id = :idTeam")
+    fun getCandidatesOfTeam(idTeam: Int): Flow<List<Candidate>>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(candidate: Candidate)
 

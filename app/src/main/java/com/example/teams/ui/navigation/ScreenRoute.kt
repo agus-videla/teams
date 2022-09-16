@@ -1,4 +1,4 @@
-package com.example.teams.ui.screens.navigation
+package com.example.teams.ui.navigation
 
 sealed class ScreenRoute(var route: String) {
     object CandidatesScreen : ScreenRoute("CandidateScreen")

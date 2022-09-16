@@ -14,8 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun CandidateDetailScreen(viewModel: CandidateDetailViewModel, id: Int) {
-    viewModel.select(id)
+fun CandidateDetailScreen(viewModel: CandidateDetailViewModel) {
     val state = viewModel.state.collectAsState()
     val candidate = state.value
     Box(

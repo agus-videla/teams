@@ -12,7 +12,7 @@ class CandidatesViewModel(private val repository: TeamsRepository) : ViewModel()
     private val _state: MutableStateFlow<List<Candidate>> = MutableStateFlow(emptyList())
     val state: StateFlow<List<Candidate>> get() = _state
 
-    val candidateList = repository.allCandidates
+    private val candidateList = repository.selectAllCandidates()
 
     init {
         viewModelScope.launch {
@@ -23,6 +23,6 @@ class CandidatesViewModel(private val repository: TeamsRepository) : ViewModel()
     }
 
     fun insert(candidate: Candidate) = viewModelScope.launch {
-        repository.insert(candidate)
+        repository.insertCandidate(candidate)
     }
 }

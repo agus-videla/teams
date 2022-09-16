@@ -6,7 +6,6 @@ import com.example.teams.data.model.entities.Candidate
 import com.example.teams.data.repository.TeamsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class CandidateDetailViewModel(private val repository: TeamsRepository) : ViewModel() {
@@ -15,7 +14,7 @@ class CandidateDetailViewModel(private val repository: TeamsRepository) : ViewMo
 
     fun select(id: Int) {
         viewModelScope.launch {
-            repository.select(id).collect{
+            repository.selectCandidate(id).collect{
                 _state.value = it
             }
         }

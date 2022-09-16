@@ -14,7 +14,7 @@ import com.example.teams.R
 import com.example.teams.data.model.entities.Candidate
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.teams.ui.screens.navigation.ScreenRoute
+import com.example.teams.ui.navigation.ScreenRoute
 
 @Composable
 fun CandidateCard(candidate: Candidate, navController: NavHostController) {
