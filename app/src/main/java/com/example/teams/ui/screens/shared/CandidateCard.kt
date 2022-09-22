@@ -62,7 +62,9 @@ fun BasicInfo(name: String, surname: String, title: String, quote: String) {
 @Preview(showBackground = true)
 @Composable
 fun EmployeeCard() {
-    Row {
+    Row(
+        horizontalArrangement = Arrangement.End
+    ){
         ProfilePicture(R.drawable.profile_picture)
         Column(
             modifier = Modifier.padding(end = 5.dp)
@@ -74,7 +76,7 @@ fun EmployeeCard() {
                 "When life gives you lemons make lemonade"
             )
             Spacer(modifier = Modifier.width(2.dp))
-            Button(modifier = Modifier.align(Alignment.End), onClick = { /*TODO*/ }) {
+            Button( onClick = { /*TODO*/ }) {
                 Text("Button")
             }
         }

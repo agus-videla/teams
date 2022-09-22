@@ -12,7 +12,7 @@ import com.example.teams.data.model.entities.Team
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Candidate::class, Team::class], version = 4, exportSchema = false)
+@Database(entities = [Candidate::class, Team::class], version = 7, exportSchema = false)
 abstract class TeamsDatabase : RoomDatabase() {
 
     abstract fun candidateDao(): CandidateDao
@@ -20,7 +20,7 @@ abstract class TeamsDatabase : RoomDatabase() {
 
 
     private class TeamsDatabaseCallback(
-        private val scope: CoroutineScope
+        private val scope: CoroutineScope,
     ) : RoomDatabase.Callback() {
 
         override fun onOpen(db: SupportSQLiteDatabase) {
@@ -42,8 +42,8 @@ abstract class TeamsDatabase : RoomDatabase() {
                     teamDao.insert(team)
                     team = Team(
                         2,
-                        "Other Duo",
-                        "Pair Programming fucks",
+                        "Dynamic Trio",
+                        "Developers.",
                         3)
                     teamDao.insert(team)
                     var candidate = Candidate(
@@ -71,7 +71,7 @@ abstract class TeamsDatabase : RoomDatabase() {
                         "Synchronised upward-trending installation",
                         "sit amet eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum curabitur in",
                         "https://robohash.org/quaedolorest.png?size=50x50&set=set1",
-                        2
+                        1
                     )
                     candidateDao.insert(candidate)
                 }
@@ -87,7 +87,7 @@ abstract class TeamsDatabase : RoomDatabase() {
 
         fun getDatabase(
             context: Context,
-            scope: CoroutineScope
+            scope: CoroutineScope,
         ): TeamsDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
