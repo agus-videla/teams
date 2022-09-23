@@ -21,7 +21,7 @@ fun CandidateCard(candidate: Candidate, navController: NavHostController) {
     Row(
         modifier = Modifier.fillMaxWidth()
     ) {
-        ProfilePicture(R.drawable.profile_picture)
+        ProfilePicture(R.drawable.profile_picture,100)
         Column(
             modifier = Modifier
             .fillMaxWidth()
@@ -35,7 +35,7 @@ fun CandidateCard(candidate: Candidate, navController: NavHostController) {
             )
             Spacer(modifier = Modifier.width(2.dp))
             Button(modifier = Modifier.align(Alignment.End), onClick = {
-                navController.navigate(ScreenRoute.DetailScreen.withArgs(candidate.id))
+                navController.navigate(ScreenRoute.CandidateDetailScreen.withArgs(candidate.id))
             }) {
                 Text("Button")
             }
@@ -65,7 +65,7 @@ fun EmployeeCard() {
     Row(
         horizontalArrangement = Arrangement.End
     ){
-        ProfilePicture(R.drawable.profile_picture)
+        ProfilePicture(R.drawable.profile_picture,100)
         Column(
             modifier = Modifier.padding(end = 5.dp)
         ) {
@@ -84,9 +84,9 @@ fun EmployeeCard() {
 }
 
 @Composable
-fun ProfilePicture(pp: Int) {
+fun ProfilePicture(pp: Int,height: Int) {
     Image(
-        modifier = Modifier.height(100.dp),
+        modifier = Modifier.height(height.dp),
         painter = painterResource(pp),
         contentDescription = "profile"
     )

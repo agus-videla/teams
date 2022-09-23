@@ -30,7 +30,7 @@ fun NavGraph(
             CandidatesScreen(candidatesViewModel, navController)
         }
         composable(
-            route = ScreenRoute.DetailScreen.route + "/{id}",
+            route = ScreenRoute.CandidateDetailScreen.route + "/{id}",
             arguments = listOf(
                 navArgument("id") { type = NavType.IntType }
             )
