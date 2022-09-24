@@ -16,7 +16,7 @@ interface CandidateDao {
     fun getCandidatesOfTeam(idTeam: Int): Flow<List<Candidate>>
 
     @Query("UPDATE Candidates SET team_id = :idTeam WHERE id = :id")
-    suspend fun updateNullTeam(id: Int, idTeam : Int)
+    suspend fun updateTeam(id: Int, idTeam : Int)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(candidate: Candidate)

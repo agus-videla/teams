@@ -48,10 +48,7 @@ class TeamsViewModel(
         }
     }
 
-    suspend fun updateNull(id: Int, idTeam: Int) {
-        repository.updateNullTeam(id, idTeam)
-        fetchTeams()
-    }
+
 
     suspend fun insert(team: Team) {
         repository.insertTeam(team)

@@ -2,7 +2,6 @@ package com.example.teams
 
 import android.content.Context
 import com.example.teams.data.model.TeamsDatabase
-import com.example.teams.data.model.entities.Team
 import com.example.teams.data.repository.TeamsRepository
 import kotlinx.coroutines.CoroutineScope
 

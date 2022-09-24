@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class CandidateDetailViewModel(
+class DetailViewModel(
     private val repository: TeamsRepository = Graph.teamsRepository,
     private val idCandidate: Int
     ) : ViewModel() {

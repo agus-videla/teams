@@ -11,11 +11,8 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.teams.ui.screens.candidateDetail.CandidateDetailViewModel
-import com.example.teams.ui.screens.candidates.CandidatesViewModel
 import com.example.teams.ui.navigation.NavGraph
 import com.example.teams.ui.navigation.BottomNavItem
-import com.example.teams.ui.screens.teams.TeamsViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable

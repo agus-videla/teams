@@ -15,10 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun CandidateDetailScreen(idCandidate: Int) {
+fun DetailScreen(idCandidate: Int) {
     val viewModel = viewModel(
-        CandidateDetailViewModel::class.java,
-        factory = CandidateDetailViewModelFactory(idCandidate)
+        DetailViewModel::class.java,
+        factory = DetailViewModelFactory(idCandidate)
     )
     val state = viewModel.state.collectAsState()
     val candidate = state.value

@@ -2,18 +2,15 @@ package com.example.teams.ui.screens.candidates
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,18 +27,25 @@ fun CandidatesScreen(navController: NavHostController) {
     val candidates = viewModel.candidates
     val teams = viewModel.teams
     val isVisible = remember { mutableStateOf(false) }
+    val selectedId = remember { mutableStateOf(-1)
+    }
     LazyColumn {
         itemsIndexed(candidates.value) { _, candidate ->
-            CandidateCard(candidate = candidate, navController) {
+            CandidateCard(candidate = candidate, navController) { id ->
                 isVisible.value = !isVisible.value
+                selectedId.value = id
             }
         }
     }
-    PopUp(isVisible.value, teams)
+    PopUp(isVisible.value, teams) { teamId ->
+        viewModel.updateTeam(selectedId.value, teamId)
+    }
 }
 
 @Composable
-fun PopUp(isVisible: Boolean, teams: State<List<Team>>) {
+fun PopUp(isVisible: Boolean,
+          teams: State<List<Team>>,
+          onClick: (teamId: Int) -> Unit) {
     if (isVisible) {
         Box(
             contentAlignment = Alignment.Center,
@@ -55,6 +59,7 @@ fun PopUp(isVisible: Boolean, teams: State<List<Team>>) {
                     .background(Color.White)
                     .height(300.dp)
                     .padding(5.dp)
+
             ) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -70,6 +75,9 @@ fun PopUp(isVisible: Boolean, teams: State<List<Team>>) {
                                     .border(width = 1.dp,
                                         color = Color.Blue)
                                     .fillMaxWidth()
+                                    .clickable {
+                                        onClick(team.id)
+                                    }
                             ) {
                                 Column {
                                     Text(

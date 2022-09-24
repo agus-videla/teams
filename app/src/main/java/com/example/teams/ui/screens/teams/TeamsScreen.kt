@@ -35,31 +35,22 @@ fun TeamsScreen() {
     }
 }
 
-
-
-
 @Composable
 fun TeamCard(team: Team, candidates: List<Candidate>) {
-    Card(
-        modifier = Modifier.border(width = 1.dp, shape = RoundedCornerShape(2), color = Color.Blue)
-    ) {
-        Column(
-            modifier = Modifier
+    Card(modifier = Modifier.border(width = 1.dp,
+        shape = RoundedCornerShape(2),
+        color = Color.Blue)) {
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()) {
+            Row(modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight()
-        ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp),
+                .padding(4.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column {
-                    Text(
-                        text = team.name,
-                        style = MaterialTheme.typography.h6
-                    )
+                    Text(text = team.name, style = MaterialTheme.typography.h6)
                     Text(
                         text = team.description,
                         fontStyle = FontStyle.Italic
@@ -75,7 +66,7 @@ fun TeamCard(team: Team, candidates: List<Candidate>) {
                         Row(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            ProfilePicture(pp = R.drawable.profile_picture, height = 50)
+                            ProfilePicture(pp = member.profilePicture, height = 50)
                             Text(
                                 text = "${member.firstName} ${member.lastName}",
                                 style = MaterialTheme.typography.body2

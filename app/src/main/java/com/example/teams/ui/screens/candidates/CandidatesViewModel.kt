@@ -44,4 +44,10 @@ class CandidatesViewModel(
     fun insert(candidate: Candidate) = viewModelScope.launch {
         repository.insertCandidate(candidate)
     }
+
+    fun updateTeam(id: Int, idTeam: Int) {
+        viewModelScope.launch {
+            repository.updateTeam(id, idTeam)
+        }
+    }
 }
