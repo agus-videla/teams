@@ -1,7 +1,5 @@
 package com.example.teams.ui.screens.teams
 
-import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -13,10 +11,8 @@ import com.example.teams.data.model.entities.Team
 import com.example.teams.data.repository.TeamsRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 class TeamsViewModel(
     private val repository: TeamsRepository = Graph.teamsRepository
@@ -25,7 +21,7 @@ class TeamsViewModel(
         mutableStateOf(emptyList())
     val state: State<List<TeamWithMembers>> get() = _state
 
-    private val allTeams = repository.selectAllTeams()
+    private val allTeams = repository.selectAllTeamsByMembers()
 
     init {
         fetchTeams()
@@ -34,8 +30,8 @@ class TeamsViewModel(
     private fun fetchTeams() {
         viewModelScope.launch {
             allTeams.map {
-                it.map {
-                    async { TeamWithMembers(it, repository.selectCandidatesOfTeam(it.id).first()) }
+                it.map { team ->
+                     async { TeamWithMembers(team, repository.selectCandidatesOfTeam(team.id).first()) }
                 }.awaitAll()
             }.collect {
                 _state.value = it

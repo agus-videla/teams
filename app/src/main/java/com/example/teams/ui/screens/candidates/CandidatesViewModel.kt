@@ -9,7 +9,6 @@ import com.example.teams.Graph
 import com.example.teams.data.model.entities.Candidate
 import com.example.teams.data.model.entities.Team
 import com.example.teams.data.repository.TeamsRepository
-import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 
 
@@ -22,7 +21,7 @@ class CandidatesViewModel(
     val teams: State<List<Team>> get() = _teams
 
     private val candidateList = repository.selectAllCandidates()
-    private val teamList = repository.selectAllTeams()
+    private val teamList = repository.selectAllTeamsById()
 
     init {
         viewModelScope.launch {

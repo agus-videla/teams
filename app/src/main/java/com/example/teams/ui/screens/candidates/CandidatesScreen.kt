@@ -27,9 +27,11 @@ fun CandidatesScreen(navController: NavHostController) {
     val candidates = viewModel.candidates
     val teams = viewModel.teams
     val isVisible = remember { mutableStateOf(false) }
-    val selectedId = remember { mutableStateOf(-1)
+    val selectedId = remember {
+        mutableStateOf(-1)
     }
-    LazyColumn {
+    LazyColumn(
+    ) {
         itemsIndexed(candidates.value) { _, candidate ->
             CandidateCard(candidate = candidate, navController) { id ->
                 isVisible.value = !isVisible.value
@@ -37,20 +39,28 @@ fun CandidatesScreen(navController: NavHostController) {
             }
         }
     }
-    PopUp(isVisible.value, teams) { teamId ->
+    PopUp(isVisible.value, teams,
+    { teamId ->
         viewModel.updateTeam(selectedId.value, teamId)
-    }
+    },
+    {
+        isVisible.value = false
+    })
 }
 
 @Composable
-fun PopUp(isVisible: Boolean,
-          teams: State<List<Team>>,
-          onClick: (teamId: Int) -> Unit) {
+fun PopUp(
+    isVisible: Boolean,
+    teams: State<List<Team>>,
+    onClick: (teamId: Int) -> Unit,
+    onOutOfCard: () -> Unit
+) {
     if (isVisible) {
         Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier.fillMaxSize()
-        ) {
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize()
+            .clickable { onOutOfCard() }
+    ) {
             Card(
                 modifier = Modifier
                     .border(width = 1.dp,
@@ -59,6 +69,7 @@ fun PopUp(isVisible: Boolean,
                     .background(Color.White)
                     .height(300.dp)
                     .padding(5.dp)
+                    .clickable(enabled = false) {}
 
             ) {
                 Column(

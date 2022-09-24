@@ -42,7 +42,11 @@ class TeamsRepository(
         return teamDao.getTeam(id)
     }
 
-    fun selectAllTeams(): Flow<List<Team>> {
-        return teamDao.getAllTeams()
+    fun selectAllTeamsById(): Flow<List<Team>> {
+        return teamDao.getAllTeamsById()
+    }
+
+    fun selectAllTeamsByMembers(): Flow<List<Team>> {
+        return teamDao.getAllTeamsByMembers()
     }
 }
