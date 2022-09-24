@@ -96,6 +96,7 @@ abstract class TeamsDatabase : RoomDatabase() {
                         "uggcf://ebobunfu.bet/dhnrqbyberfg.cat?fvmr=50k50&frg=frg1",
                         2)
                     candidateDao.insert(candidate)
+                    candidateDao.updateNullTeam(4,3)
                 }
             }
         }

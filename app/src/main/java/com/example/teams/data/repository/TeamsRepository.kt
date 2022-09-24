@@ -34,8 +34,8 @@ class TeamsRepository(
     }
 
     @WorkerThread
-    suspend fun updateNullTeam(idTeam: Int) {
-        candidateDao.updateNullTeam(idTeam)
+    suspend fun updateNullTeam(id: Int, idTeam: Int) {
+        candidateDao.updateNullTeam(id, idTeam)
     }
 
     fun selectTeam(id: Int): Flow<Team> {

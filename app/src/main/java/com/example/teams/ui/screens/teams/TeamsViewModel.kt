@@ -45,8 +45,8 @@ class TeamsViewModel(private val repository: TeamsRepository) : ViewModel() {
         }
     }
 
-    suspend fun updateNull(idTeam: Int) {
-        repository.updateNullTeam(idTeam)
+    suspend fun updateNull(id: Int, idTeam: Int) {
+        repository.updateNullTeam(id, idTeam)
         fetchTeams()
     }
 
