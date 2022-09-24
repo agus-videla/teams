@@ -5,9 +5,11 @@ import com.example.teams.data.model.TeamsDatabase
 import com.example.teams.data.repository.TeamsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.coroutineScope
 
 class TeamsApplication : Application() {
-    val applicationScope = CoroutineScope(SupervisorJob())
-    val database by lazy { TeamsDatabase.getDatabase(this, applicationScope) }
-    val repository by lazy { TeamsRepository(database.candidateDao(), database.teamDao()) }
+    override fun onCreate() {
+        super.onCreate()
+        Graph.provide(this, CoroutineScope(SupervisorJob()))
+    }
 }

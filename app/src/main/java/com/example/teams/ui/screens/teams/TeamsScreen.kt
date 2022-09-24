@@ -15,13 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.teams.R
 import com.example.teams.data.model.entities.Candidate
 import com.example.teams.data.model.entities.Team
 import com.example.teams.ui.screens.candidates.ProfilePicture
 
 @Composable
-fun TeamsScreen(viewModel: TeamsViewModel) {
+fun TeamsScreen() {
+    val viewModel = viewModel(TeamsViewModel::class.java)
     val state = viewModel.state
     LazyColumn(
         modifier = Modifier.padding(4.dp),

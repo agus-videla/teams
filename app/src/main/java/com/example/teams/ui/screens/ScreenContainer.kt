@@ -20,15 +20,12 @@ import com.example.teams.ui.screens.teams.TeamsViewModel
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ScreenContainer(
-    navController: NavHostController,
-    candidatesViewModel: CandidatesViewModel,
-    candidateDetailViewModel: CandidateDetailViewModel,
-    teamsViewModel: TeamsViewModel
+    navController: NavHostController
 ) {
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
     ) {
-        NavGraph(navController, candidatesViewModel, candidateDetailViewModel, teamsViewModel)
+        NavGraph(navController)
     }
 }
 

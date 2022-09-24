@@ -19,12 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.teams.data.model.entities.Team
 
 
 @Composable
-fun CandidatesScreen(viewModel: CandidatesViewModel, navController: NavHostController) {
+fun CandidatesScreen(navController: NavHostController) {
+    val viewModel = viewModel(CandidatesViewModel::class.java)
     val candidates = viewModel.candidates
     val teams = viewModel.teams
     val isVisible = remember { mutableStateOf(false) }

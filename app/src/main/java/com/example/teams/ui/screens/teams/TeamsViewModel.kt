@@ -7,6 +7,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.teams.Graph
 import com.example.teams.data.model.entities.Candidate
 import com.example.teams.data.model.entities.Team
 import com.example.teams.data.repository.TeamsRepository
@@ -17,7 +18,9 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlin.math.log
 
-class TeamsViewModel(private val repository: TeamsRepository) : ViewModel() {
+class TeamsViewModel(
+    private val repository: TeamsRepository = Graph.teamsRepository
+    ) : ViewModel() {
     private val _state: MutableState<List<TeamWithMembers>> =
         mutableStateOf(emptyList())
     val state: State<List<TeamWithMembers>> get() = _state

@@ -12,9 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun CandidateDetailScreen(viewModel: CandidateDetailViewModel) {
+fun CandidateDetailScreen(idCandidate: Int) {
+    val viewModel = viewModel(
+        CandidateDetailViewModel::class.java,
+        factory = CandidateDetailViewModelFactory(idCandidate)
+    )
     val state = viewModel.state.collectAsState()
     val candidate = state.value
     Box(

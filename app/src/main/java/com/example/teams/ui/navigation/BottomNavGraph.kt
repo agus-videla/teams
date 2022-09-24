@@ -16,18 +16,15 @@ import com.example.teams.ui.screens.teams.TeamsViewModel
 @Composable
 fun NavGraph(
     navController: NavHostController,
-    candidatesViewModel: CandidatesViewModel,
-    candidateDetailViewModel: CandidateDetailViewModel,
-    teamsViewModel: TeamsViewModel
 ) {
     NavHost(
         navController = navController,
         startDestination = ScreenRoute.TeamsScreen.route) {
         composable(ScreenRoute.TeamsScreen.route) {
-            TeamsScreen(teamsViewModel)
+            TeamsScreen()
         }
         composable(ScreenRoute.CandidatesScreen.route) {
-            CandidatesScreen(candidatesViewModel, navController)
+            CandidatesScreen(navController)
         }
         composable(
             route = ScreenRoute.CandidateDetailScreen.route + "/{id}",
@@ -37,8 +34,7 @@ fun NavGraph(
         ) { entry ->
             val id = entry.arguments?.getInt("id")
             requireNotNull(id) { "Detail Requires ID" }
-            candidateDetailViewModel.select(id)
-            CandidateDetailScreen(candidateDetailViewModel)
+            CandidateDetailScreen(id)
         }
     }
 }
