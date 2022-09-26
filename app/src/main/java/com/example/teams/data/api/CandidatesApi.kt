@@ -8,6 +8,6 @@ import retrofit2.http.Query
 
 interface CandidatesApi {
     @GET(value = "/candidates.json")
-    fun getCandidates(@Query(value = "key") key: String): Response<List<Candidate>>
+    suspend fun getCandidates(@Query(value = "key") key: String): Response<List<ApiCandidate>>
 }
 

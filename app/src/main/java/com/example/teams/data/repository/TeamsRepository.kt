@@ -2,7 +2,6 @@ package com.example.teams.data.repository
 
 import android.util.Log
 import androidx.annotation.WorkerThread
-import com.example.teams.data.api.ApiCandidate
 import com.example.teams.data.api.RetrofitInstance
 import com.example.teams.data.database.dao.CandidateDao
 import com.example.teams.data.database.dao.TeamDao
@@ -12,16 +11,17 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import okio.IOException
 import retrofit2.HttpException
 
-const val TAG = "Repository"
+const val TAG = "Repository Class"
 
 class TeamsRepository(
     private val candidateDao: CandidateDao,
     private val teamDao: TeamDao,
-    private val API_KEY: String = "52585be0"
+    private val API_KEY: String = "52585be0",
 ) {
     @WorkerThread
     suspend fun insertCandidate(candidate: Candidate) {
@@ -36,8 +36,16 @@ class TeamsRepository(
         return candidateDao.getCandidatesOfTeam(id)
     }
 
-    fun selectAllCandidates(): Flow<List<Candidate>> {
-        return candidateDao.getAllCandidates()
+    suspend fun selectAllCandidates(): Flow<List<Candidate>> {
+        return flow {
+            val dbCandidates = candidateDao.getAllCandidates()
+            emit(dbCandidates)
+            val apiCandidates = getApiCandidates().map {
+                it.id += dbCandidates.size
+                it
+            }
+            emit(dbCandidates + apiCandidates)
+        }
     }
 
     @WorkerThread
@@ -75,8 +83,20 @@ class TeamsRepository(
                 Log.e(TAG, "HttpException, unexpected response")
                 return@launch
             }
-            if(response.isSuccessful && response.body() != null) {
-                list = response.body()!!
+            if (response.isSuccessful) {
+                list = response.body()!!.map {
+                    Candidate(it.id,
+                        it.firstName,
+                        it.lastName,
+                        it.email,
+                        it.gender,
+                        it.age,
+                        it.jobTitle,
+                        it.quote,
+                        it.bio,
+                        it.profilePicture,
+                        it.idTeam)
+                }
             } else {
                 Log.e(TAG, "Bad Response")
             }

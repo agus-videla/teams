@@ -9,7 +9,9 @@ import com.example.teams.Graph
 import com.example.teams.data.database.entities.Candidate
 import com.example.teams.data.database.entities.Team
 import com.example.teams.data.repository.TeamsRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class CandidatesViewModel(
@@ -20,7 +22,7 @@ class CandidatesViewModel(
     private val _teams: MutableState<List<Team>> = mutableStateOf(emptyList())
     val teams: State<List<Team>> get() = _teams
 
-    private val candidateList = repository.selectAllCandidates()
+    //private val candidateList = repository.selectAllCandidates()
     private val teamList = repository.selectAllTeamsOrderedById()
 
     init {
@@ -33,9 +35,11 @@ class CandidatesViewModel(
     }
 
     init {
-        viewModelScope.launch {
-            candidateList.collect {
-                _candidates.value = it
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.selectAllCandidates().collect {
+                withContext(Dispatchers.Main){
+                    _candidates.value = it
+                }
             }
         }
     }
