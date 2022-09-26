@@ -1,7 +1,7 @@
-package com.example.teams.data.model.dao
+package com.example.teams.data.database.dao
 
 import androidx.room.*
-import com.example.teams.data.model.entities.Candidate
+import com.example.teams.data.database.entities.Candidate
 import kotlinx.coroutines.flow.Flow
 
 @Dao

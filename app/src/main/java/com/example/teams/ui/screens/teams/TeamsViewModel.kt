@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.teams.Graph
-import com.example.teams.data.model.entities.Candidate
-import com.example.teams.data.model.entities.Team
+import com.example.teams.data.database.entities.Candidate
+import com.example.teams.data.database.entities.Team
 import com.example.teams.data.repository.TeamsRepository
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -21,7 +21,7 @@ class TeamsViewModel(
         mutableStateOf(emptyList())
     val state: State<List<TeamWithMembers>> get() = _state
 
-    private val allTeams = repository.selectAllTeamsByMembers()
+    private val allTeams = repository.selectAllTeamsOrderedByMembers()
 
     init {
         fetchTeams()

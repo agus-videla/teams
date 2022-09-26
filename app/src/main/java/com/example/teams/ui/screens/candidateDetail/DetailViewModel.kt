@@ -3,7 +3,7 @@ package com.example.teams.ui.screens.candidateDetail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.teams.Graph
-import com.example.teams.data.model.entities.Candidate
+import com.example.teams.data.database.entities.Candidate
 import com.example.teams.data.repository.TeamsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

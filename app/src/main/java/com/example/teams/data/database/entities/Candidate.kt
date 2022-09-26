@@ -1,4 +1,4 @@
-package com.example.teams.data.model.entities
+package com.example.teams.data.database.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -19,7 +19,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.teams.R
-import com.example.teams.data.model.entities.Candidate
+import com.example.teams.data.database.entities.Candidate
 import com.example.teams.ui.navigation.ScreenRoute
 
 @Composable

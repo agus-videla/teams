@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.teams.Graph
-import com.example.teams.data.model.entities.Candidate
-import com.example.teams.data.model.entities.Team
+import com.example.teams.data.database.entities.Candidate
+import com.example.teams.data.database.entities.Team
 import com.example.teams.data.repository.TeamsRepository
 import kotlinx.coroutines.launch
 
@@ -21,7 +21,7 @@ class CandidatesViewModel(
     val teams: State<List<Team>> get() = _teams
 
     private val candidateList = repository.selectAllCandidates()
-    private val teamList = repository.selectAllTeamsById()
+    private val teamList = repository.selectAllTeamsOrderedById()
 
     init {
         viewModelScope.launch {

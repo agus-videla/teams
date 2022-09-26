@@ -16,9 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.teams.R
-import com.example.teams.data.model.entities.Candidate
-import com.example.teams.data.model.entities.Team
+import com.example.teams.data.database.entities.Candidate
+import com.example.teams.data.database.entities.Team
 import com.example.teams.ui.screens.candidates.ProfilePicture
 
 @Composable
