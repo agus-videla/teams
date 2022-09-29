@@ -2,6 +2,7 @@ package com.example.teams.data.repository
 
 import android.util.Log
 import androidx.annotation.WorkerThread
+import com.example.teams.data.api.ApiCandidate
 import com.example.teams.data.api.RetrofitInstance
 import com.example.teams.data.database.dao.CandidateDao
 import com.example.teams.data.database.dao.TeamDao
@@ -23,28 +24,31 @@ class TeamsRepository(
     private val teamDao: TeamDao,
     private val API_KEY: String = "52585be0",
 ) {
+    var API_RESPONSE: List<Candidate> = emptyList()
+
     @WorkerThread
     suspend fun insertCandidate(candidate: Candidate) {
         candidateDao.insert(candidate)
-    }
-
-    fun selectCandidate(id: Int): Flow<Candidate> {
-        return candidateDao.getCandidate(id)
     }
 
     fun selectCandidatesOfTeam(id: Int): Flow<List<Candidate>> {
         return candidateDao.getCandidatesOfTeam(id)
     }
 
+    fun getMaxId(): Int {
+        return candidateDao.getMaxId()
+    }
+
     suspend fun selectAllCandidates(): Flow<List<Candidate>> {
         return flow {
-            val dbCandidates = candidateDao.getAllCandidates()
-            emit(dbCandidates)
-            val apiCandidates = getApiCandidates().map {
-                it.id += dbCandidates.size
-                it
+            if (API_RESPONSE.isEmpty()) {
+                getApiCandidates()
             }
-            emit(dbCandidates + apiCandidates)
+            //val apiCandidates = API_RESPONSE.map {
+            //   it.id += dbCandidates.size
+            //  it
+            //}
+            emit(API_RESPONSE)
         }
     }
 
@@ -58,10 +62,6 @@ class TeamsRepository(
         candidateDao.updateTeam(id, idTeam)
     }
 
-    fun selectTeam(id: Int): Flow<Team> {
-        return teamDao.getTeam(id)
-    }
-
     fun selectAllTeamsOrderedById(): Flow<List<Team>> {
         return teamDao.getAllTeamsOrderedById()
     }
@@ -71,7 +71,7 @@ class TeamsRepository(
     }
 
     @OptIn(DelicateCoroutinesApi::class) //?
-    suspend fun getApiCandidates(): List<Candidate> {
+    suspend fun getApiCandidates() {
         var list: List<Candidate> = emptyList()
         GlobalScope.launch(Dispatchers.IO) {
             val response = try {
@@ -86,22 +86,30 @@ class TeamsRepository(
             if (response.isSuccessful) {
                 list = response.body()!!.map {
                     Candidate(it.id,
-                        it.firstName,
-                        it.lastName,
+                        it.first_name,
+                        it.last_name,
                         it.email,
                         it.gender,
                         it.age,
-                        it.jobTitle,
+                        it.job_title,
                         it.quote,
                         it.bio,
-                        it.profilePicture,
-                        it.idTeam)
+                        it.profile_picture,
+                        null)
                 }
             } else {
                 Log.e(TAG, "Bad Response")
             }
         }.join()
-        return list
+        API_RESPONSE = list
+    }
+
+    fun selectApiCandidate(idCandidate: Int): Flow<Candidate> {
+        return flow {
+            emit(API_RESPONSE.first {
+                it.id == idCandidate
+            })
+        }
     }
 
 }

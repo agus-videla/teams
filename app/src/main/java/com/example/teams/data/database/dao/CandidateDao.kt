@@ -23,4 +23,7 @@ interface CandidateDao {
 
     @Query("DELETE FROM Candidates")
     suspend fun deleteAll()
+
+    @Query("SELECT MAX(id) FROM Candidates")
+    fun getMaxId(): Int
 }

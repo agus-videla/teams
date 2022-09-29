@@ -2,14 +2,13 @@ package com.example.teams.data.api
 
 data class ApiCandidate(
     val id: Int,
-    val firstName: String,
-    val lastName: String,
-    val email: String,
+    val first_name: String,
+    val last_name: String,
     val gender: String,
     val age: Int,
-    val jobTitle: String,
+    val job_title: String,
     val quote: String,
     val bio: String,
-    val profilePicture: String,
-    val idTeam: Int?
+    val email: String,
+    val profile_picture: String,
 )

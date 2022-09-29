@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
         childColumns = arrayOf("team_id"),
         onDelete = ForeignKey.CASCADE)])
 class Candidate(
-    @PrimaryKey(autoGenerate = true) var id: Int,
+    @PrimaryKey(autoGenerate = true) var id: Int = 0,
     @ColumnInfo(name = "first_name") val firstName: String,
     @ColumnInfo(name = "last_name") val lastName: String,
     @ColumnInfo(name = "email") val email: String,
@@ -34,6 +34,6 @@ class Candidate(
         "",
         "",
         "",
-        null
+        null,
     )
 }

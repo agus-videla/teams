@@ -13,7 +13,6 @@ object RetrofitInstance {
     val api:CandidatesApi by lazy {
         Retrofit.Builder()
             .baseUrl("https://my.api.mockaroo.com")
-            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CandidatesApi::class.java)

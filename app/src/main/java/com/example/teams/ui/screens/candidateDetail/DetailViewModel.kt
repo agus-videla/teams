@@ -18,7 +18,7 @@ class DetailViewModel(
 
     init {
         viewModelScope.launch {
-            repository.selectCandidate(idCandidate).collect {
+            repository.selectApiCandidate(idCandidate).collect {
                 _state.value = it
             }
         }

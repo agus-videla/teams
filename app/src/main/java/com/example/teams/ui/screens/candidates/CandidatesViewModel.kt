@@ -49,8 +49,13 @@ class CandidatesViewModel(
     }
 
     fun updateTeam(id: Int, idTeam: Int) {
-        viewModelScope.launch {
-            repository.updateTeam(id, idTeam)
+        viewModelScope.launch(Dispatchers.IO) {
+            val candidate = repository.API_RESPONSE.first {
+                it.id == id
+            }
+            candidate.id = 0
+            repository.insertCandidate(candidate)
+            repository.updateTeam(repository.getMaxId(), idTeam)
         }
     }
 }
