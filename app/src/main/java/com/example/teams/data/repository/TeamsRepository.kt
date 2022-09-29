@@ -2,7 +2,6 @@ package com.example.teams.data.repository
 
 import android.util.Log
 import androidx.annotation.WorkerThread
-import com.example.teams.data.api.ApiCandidate
 import com.example.teams.data.api.RetrofitInstance
 import com.example.teams.data.database.dao.CandidateDao
 import com.example.teams.data.database.dao.TeamDao
@@ -24,19 +23,17 @@ class TeamsRepository(
     private val teamDao: TeamDao,
     private val API_KEY: String = "52585be0",
 ) {
-    var API_RESPONSE: List<Candidate> = emptyList()
+    var API_RESPONSE: MutableList<Candidate> = mutableListOf()
 
     @WorkerThread
-    suspend fun insertCandidate(candidate: Candidate) {
-        candidateDao.insert(candidate)
+    suspend fun insertCandidate(candidate: Candidate): Long {
+        API_RESPONSE.remove(candidate)
+        candidate.id = 0
+        return candidateDao.insert(candidate)
     }
 
     fun selectCandidatesOfTeam(id: Int): Flow<List<Candidate>> {
         return candidateDao.getCandidatesOfTeam(id)
-    }
-
-    fun getMaxId(): Int {
-        return candidateDao.getMaxId()
     }
 
     suspend fun selectAllCandidates(): Flow<List<Candidate>> {
@@ -44,10 +41,6 @@ class TeamsRepository(
             if (API_RESPONSE.isEmpty()) {
                 getApiCandidates()
             }
-            //val apiCandidates = API_RESPONSE.map {
-            //   it.id += dbCandidates.size
-            //  it
-            //}
             emit(API_RESPONSE)
         }
     }
@@ -58,7 +51,7 @@ class TeamsRepository(
     }
 
     @WorkerThread
-    suspend fun updateTeam(id: Int, idTeam: Int) {
+    suspend fun updateTeam(id: Long, idTeam: Int) {
         candidateDao.updateTeam(id, idTeam)
     }
 
@@ -101,7 +94,7 @@ class TeamsRepository(
                 Log.e(TAG, "Bad Response")
             }
         }.join()
-        API_RESPONSE = list
+        API_RESPONSE = list.toMutableList()
     }
 
     fun selectApiCandidate(idCandidate: Int): Flow<Candidate> {

@@ -17,8 +17,9 @@ import kotlinx.coroutines.withContext
 class CandidatesViewModel(
     private val repository: TeamsRepository = Graph.teamsRepository
     ) : ViewModel() {
-    private val _candidates: MutableState<List<Candidate>> = mutableStateOf(emptyList())
-    val candidates: State<List<Candidate>> get() = _candidates
+
+    private val _uiState: MutableState<UIState> = mutableStateOf(UIState.Loading)
+    val uiState: State<UIState> get() = _uiState
     private val _teams: MutableState<List<Team>> = mutableStateOf(emptyList())
     val teams: State<List<Team>> get() = _teams
 
@@ -29,8 +30,7 @@ class CandidatesViewModel(
         viewModelScope.launch {
             teamList.collect {
                 _teams.value = it
-            } // señalar finalizacion de operacion
-
+            }
         }
     }
 
@@ -38,24 +38,22 @@ class CandidatesViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             repository.selectAllCandidates().collect {
                 withContext(Dispatchers.Main){
-                    _candidates.value = it
+                    _uiState.value = UIState.Success(it)
                 }
             }
         }
     }
 
-    fun insert(candidate: Candidate) = viewModelScope.launch {
-        repository.insertCandidate(candidate)
-    }
-
     fun updateTeam(id: Int, idTeam: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val candidate = repository.API_RESPONSE.first {
-                it.id == id
-            }
-            candidate.id = 0
-            repository.insertCandidate(candidate)
-            repository.updateTeam(repository.getMaxId(), idTeam)
+            val candidate = repository.API_RESPONSE.first { it.id == id }
+            val dbCandidateId = repository.insertCandidate(candidate)
+            repository.updateTeam(dbCandidateId, idTeam)
         }
     }
+}
+
+sealed class UIState(val data: List<Candidate>) {
+    object Loading : UIState(emptyList())
+    class Success(data: List<Candidate>) : UIState(data)
 }

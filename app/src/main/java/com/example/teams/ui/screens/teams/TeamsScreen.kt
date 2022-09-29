@@ -21,11 +21,11 @@ import com.example.teams.data.database.entities.Team
 import com.example.teams.ui.screens.candidates.ProfilePicture
 
 @Composable
-fun TeamsScreen() {
+fun TeamsScreen(paddingValues: PaddingValues) {
     val viewModel = viewModel(TeamsViewModel::class.java)
     val state = viewModel.state
     LazyColumn(
-        modifier = Modifier.padding(4.dp),
+        modifier = Modifier.padding(paddingValues),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         items(state.value) { team ->

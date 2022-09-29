@@ -22,7 +22,7 @@ fun ScreenContainer(
     Scaffold(
         bottomBar = { BottomBar(navController = navController) }
     ) {
-        NavGraph(navController)
+        NavGraph(navController, it)
     }
 }
 

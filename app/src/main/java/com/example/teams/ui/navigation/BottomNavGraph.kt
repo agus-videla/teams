@@ -1,5 +1,6 @@
 package com.example.teams.ui.navigation
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -13,15 +14,16 @@ import com.example.teams.ui.screens.teams.TeamsScreen
 @Composable
 fun NavGraph(
     navController: NavHostController,
+    paddingValues: PaddingValues,
 ) {
     NavHost(
         navController = navController,
         startDestination = ScreenRoute.TeamsScreen.route) {
         composable(ScreenRoute.TeamsScreen.route) {
-            TeamsScreen()
+            TeamsScreen(paddingValues)
         }
         composable(ScreenRoute.CandidatesScreen.route) {
-            CandidatesScreen(navController)
+            CandidatesScreen(navController, paddingValues)
         }
         composable(
             route = ScreenRoute.CandidateDetailScreen.route + "/{id}",
